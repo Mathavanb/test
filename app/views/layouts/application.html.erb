@@ -1,3 +1,4 @@
+<p style="color: green"><%= notice %></p>
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,5 +13,10 @@
 
   <body>
     <%= yield %>
+  <% if user_signed_in? %>
+    <div style="position:absolute;top:40px;right:30px"><strong><%= current_user.email %></strong></div>
+    <div style="position:absolute;top:70px;right:40px"><%= button_to 'Log Out', destroy_user_session_path, method: :delete %></div>
+    <div style="position:absolute;top:70px;right:120px"><%= link_to 'Edit profile', edit_user_registration_path %></div>
+    <% end %>
   </body>
 </html>
