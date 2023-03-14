@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :set_category, only: %i[ show new edit create update destroy]
-  before_action :set_product, only: %i[ show edit update destroy ]
+  before_action :set_category, only: %i[ show new edit create destroy]
+  before_action :set_product, only: %i[ show edit destroy ]
 
   # GET /products or /products.json
   def index
@@ -21,10 +21,12 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = @category.products.new
+    @rating = Rating.new
   end
 
   # GET /products/1/edit
   def edit
+    @rating = Rating.new
   end
 
   # POST /products or /products.json
@@ -44,15 +46,25 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to category_product_url(@category,@product), notice: "Product was successfully updated." }
-        format.json { render :show, status: :ok, location: @product }
+      if params[:product][:rating].present?
+        @product = Product.find(params[:id])
+        @rating = @product.ratings.new(params[:product][:rating][0])
+        @rating.value = params[:product][:rating][:value].to_i
+        if @rating.save
+          redirect_to category_products_path(@product.category_id,@product)
+        end
+
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+        @category = Category.find(params[:category_id])
+        @product = @category.products.find(params[:id])
+        if @product.update(product_params)
+          format.html { redirect_to category_product_url(@category,@product), notice: "Product was successfully updated." }
+          format.json { render :show, status: :ok, location: @product }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @product.errors, status: :unprocessable_entity }
+        end
       end
-    end
   end
 
   # DELETE /products/1 or /products/1.json

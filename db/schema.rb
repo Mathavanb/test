@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_13_171332) do
+ActiveRecord::Schema.define(version: 2023_03_14_044346) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 2023_03_13_171332) do
     t.integer "tag_id", null: false
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.integer "value"
+    t.integer "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_ratings_on_product_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -49,5 +57,6 @@ ActiveRecord::Schema.define(version: 2023_03_13_171332) do
   end
 
   add_foreign_key "products", "categories"
+  add_foreign_key "ratings", "products"
   add_foreign_key "variants", "products"
 end

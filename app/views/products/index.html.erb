@@ -9,6 +9,7 @@
       <th>Description</th>
       <th>Category</th>
       <th>Tag</th>
+      <th>Rating</th>
       <th colspan="3">Action</th>
     </tr>
   </thead>
@@ -26,6 +27,15 @@
             <% end %>
           <% else %>
             No Tags Available!!
+          <% end %>
+        </td>
+        <td>
+          <% if product.ratings.any? %>
+            <% product.ratings.group(:value).count.each do |i| %>
+              <b><%= i[0] %></b> ⭐ given by <b><%= i[1] %></b> |
+            <% end %>
+          <% else %>
+            No Rating Available!
           <% end %>
         </td>
         <td><%= link_to 'Show', category_product_path(product.category.id, product) %></td>
