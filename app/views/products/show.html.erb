@@ -44,6 +44,33 @@
   <% end %>
 </p>
 
+<p><b>Author Name:</b>
+  <% if @product.user %>
+    <%= @product.user.email %>
+  <% else %>
+  -
+<% end %>
+</p>
+
+<div>
+  <% unless @product.users.include?(current_user) %>
+  <script>
+    $(document).ready(function (){
+        let id = <%= @product.id %>;
+        $.ajaxSetup({
+           headers:{
+               'X-CSRF-Token':$('meta[name="csrf-token"]').attr('content')
+           }
+        });
+        $.ajax({
+           url:'/products/'+id+'/mark',
+            type:'POST'
+        });
+    });
+  </script>
+  <% end %>
+</div>
+
 <%= link_to 'Variants', product_variants_path(@product) %> |
 <%= link_to 'Edit', edit_category_product_path(@category, @product) %> |
 <%= link_to 'Back', category_products_path(@category) %>
@@ -74,6 +101,7 @@
         <tr>
           <th>Colour</th>
           <th>Price</th>
+          <th>Author Name</th>
           <th>Product ID</th>
           <th colspan="3">Action</th>
         </tr>
@@ -84,6 +112,13 @@
           <tr>
             <td><%= variant.colour %></td>
             <td><%= variant.price %></td>
+            <td>
+              <% if variant.user %>
+              <%= variant.user.email %>
+                <% else %>
+              <p style="text-align: center">-</p>
+              <% end %>
+            </td>
             <td style="text-align: center"><%= variant.product_id %></td>
 
             <td><%= link_to 'Show', product_variant_path(@product,variant) %></td>

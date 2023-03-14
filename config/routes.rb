@@ -18,5 +18,6 @@ Rails.application.routes.draw do
 
     get '/products', to: 'products#index'
     get '/profiles', to:'products#profile'
+  post '/products/:id/mark', to:'products#mark'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

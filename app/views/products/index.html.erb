@@ -1,15 +1,18 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"><%= notice %></p><br><br>
 
 <h1><%= @name %></h1><br>
 
-<table style="border-spacing: 15px">
+<table style="border-spacing: 10px">
   <thead>
     <tr>
       <th>Name</th>
       <th>Description</th>
       <th>Category</th>
+      <th>Status</th>
       <th>Tag</th>
       <th>Rating</th>
+      <th>Average Rating</th>
+      <th>Variants</th>
       <th colspan="3">Action</th>
     </tr>
   </thead>
@@ -20,6 +23,13 @@
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td style="text-align: center"><%= product.category.id %></td>
+        <td>
+          <% if product.users.include?(current_user) %>
+          Read
+          <% else %>
+          UnRead
+          <% end %>
+        </td>
         <td>
           <% if product.tags.any? %>
             <% product.tags.each do |tag| %>
@@ -36,6 +46,20 @@
             <% end %>
           <% else %>
             No Rating Available!
+          <% end %>
+        </td>
+        <td>
+          <% if product.ratings.any? %>
+          <div style="text-align: center"><%= product.ratings.average(:value).round(1) %></div>
+          <% else %>
+          <div style="text-align: center"> - </div>
+          <% end %>
+        </td>
+        <td>
+          <% if product.variants.any? %>
+          <div style="text-align: center"><%= product.variants.length %></div>
+          <% else %>
+          <div style="text-align: center">-</div>
           <% end %>
         </td>
         <td><%= link_to 'Show', category_product_path(product.category.id, product) %></td>

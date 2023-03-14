@@ -1,6 +1,13 @@
 class ProductsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_category, only: %i[ show new edit create destroy]
   before_action :set_product, only: %i[ show edit destroy ]
+
+  def mark
+    @product = Product.find(params[:id])
+    current_user.products << @product
+    head :ok
+  end
 
   # GET /products or /products.json
   def index
@@ -35,6 +42,7 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
+    @product.user_id = current_user.id
     if params[:product][:image].present?
       @product.image.attach(params[:product][:image])
     end

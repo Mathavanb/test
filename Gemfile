@@ -9,6 +9,7 @@ gem 'rails', '~> 6.1.5'
 gem 'sqlite3', '~> 1.4'
 gem 'devise'
 gem 'activestorage'
+gem 'cancancan'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets

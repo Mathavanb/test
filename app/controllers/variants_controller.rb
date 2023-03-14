@@ -1,4 +1,5 @@
 class VariantsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_product
   before_action :set_variant, only: %i[ show edit update destroy ]
 
@@ -23,7 +24,7 @@ class VariantsController < ApplicationController
   # POST /variants or /variants.json
   def create
     @variant = @product.variants.new(variant_params)
-
+    @variant.user_id = current_user.id
     respond_to do |format|
       if @variant.save
         format.html { redirect_to product_variant_url(@product,@variant), notice: "Variant was successfully created." }

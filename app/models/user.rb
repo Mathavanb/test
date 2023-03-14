@@ -5,4 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :avatar
+
+  has_many :products
+  has_many :variants
+
+  has_and_belongs_to_many :products, join_table: "products_users"
 end
