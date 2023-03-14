@@ -34,7 +34,15 @@
   <% else %>
   No Rating Available!
   <% end %>
-</p><br>
+</p>
+
+<p><b>Image:</b><br><br>
+  <% if @product.image.attached? %>
+    <%= image_tag @product.image %>
+    <% else %>
+  No Image Available!!
+  <% end %>
+</p>
 
 <%= link_to 'Variants', product_variants_path(@product) %> |
 <%= link_to 'Edit', edit_category_product_path(@category, @product) %> |
