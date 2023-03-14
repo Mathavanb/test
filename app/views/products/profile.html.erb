@@ -1,0 +1,16 @@
+<h1>User Profile</h1>
+<br><hr>
+
+<br>
+<b>E-mail: </b>
+<%= current_user.email %><br><br>
+<b>Image: </b><br>
+<% if current_user.avatar.attached? %><br>
+  <%= image_tag current_user.avatar %>
+<% else %>
+  No Image Available!!
+<% end %><br><br>
+
+<%= link_to 'Edit', edit_user_registration_path %> |
+<%= link_to 'Log Out', destroy_user_session_path, method: :delete %> |
+<%= link_to 'Back', :back %>

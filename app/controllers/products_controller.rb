@@ -14,6 +14,9 @@ class ProductsController < ApplicationController
     end
   end
 
+  def profile
+  end
+
   # GET /products/1 or /products/1.json
   def show
   end

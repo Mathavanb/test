@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
   resources :tags
     resources :categories do
       resources :products
@@ -13,5 +17,6 @@ Rails.application.routes.draw do
     root 'categories#index'
 
     get '/products', to: 'products#index'
+    get '/profiles', to:'products#profile'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

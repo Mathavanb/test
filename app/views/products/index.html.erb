@@ -19,14 +19,14 @@
       <tr>
         <td><%= product.name %></td>
         <td><%= product.description %></td>
-        <td><%= product.category.id %></td>
+        <td style="text-align: center"><%= product.category.id %></td>
         <td>
-          <% if Tag.any? %>
+          <% if product.tags.any? %>
             <% product.tags.each do |tag| %>
               <%= tag.name %> ,
             <% end %>
           <% else %>
-            No Tags Available!!
+            No Tag Available!
           <% end %>
         </td>
         <td>
