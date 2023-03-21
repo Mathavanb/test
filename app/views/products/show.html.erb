@@ -16,12 +16,14 @@
 </p>
 
 <p><b>Tags:</b>
-  <% if Tag.any? %>
-    <% @product.tags.each do |tag| %>
-      <%= tag.name %> ,
+  <% if Tag.count > 0 %>
+    <% if @product.tags.present? %>
+      <% @product.tags.each do |tag| %>
+      <li><%= tag.name %></li>
     <% end %>
-    <% else %>
-  No Tags Available!!
+  <% else %>
+    No Tags Available!!
+    <% end %>
     <% end %>
 </p>
 
@@ -36,8 +38,8 @@
   <% end %>
 </p>
 
-<p><b>Image:</b><br><br>
-  <% if @product.image.attached? %>
+<p><b>Image:</b>
+  <% if @product.image.attached? %><br><br>
     <%= image_tag @product.image %>
     <% else %>
   No Image Available!!
@@ -50,7 +52,7 @@
   <% else %>
   -
 <% end %>
-</p>
+</p><br>
 
 <div>
   <% unless @product.users.include?(current_user) %>

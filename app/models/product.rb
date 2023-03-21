@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  validates :name, length: { maximum: 20 }, presence: true
   belongs_to :category
   has_many :variants, dependent: :destroy
 

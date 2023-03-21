@@ -1,1 +1,1 @@
-json.partial! "categories/category", category: @category
+json.name @category.namejson.description @category.descriptionjson.url categories_url(@categories)

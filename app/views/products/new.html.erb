@@ -1,5 +1,23 @@
 <h1>New Product</h1><br>
 
 <%= render 'form', product: @product %>
-
+<div id="load" style="display: none">
+  Waiting...</div>
 <%= link_to 'Back', category_products_path(@category) %>
+
+<script>
+    $("form").on('submit', function() {
+        $("#load").show();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: $(this).serialize(),
+            success: function(response) {
+                $("#load").hide();
+            },
+            error: function(response) {
+                $("#load").hide();
+            }
+        });
+        return false;
+    });</script>

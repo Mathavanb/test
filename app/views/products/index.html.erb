@@ -64,7 +64,7 @@
         </td>
         <td><%= link_to 'Show', category_product_path(product.category.id, product) %></td>
         <td><%= link_to 'Edit', edit_category_product_path(product.category.id, product) %></td>
-        <td><%= button_to 'Destroy', category_product_path(product.category.id, product), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', category_product_path(product.category.id, product), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'Variants', product_variants_path(product) %></td>
       </tr>
     <% end %>
@@ -73,5 +73,7 @@
 
 <% if @name != "All Posts" %>
   <%= link_to 'New Product', new_category_product_path(@category) %> |
+  <% else %>
+  <%= will_paginate @product %><br>
 <% end %>
 <%= link_to 'Back Category', categories_path %>

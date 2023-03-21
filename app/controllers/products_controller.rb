@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
       @product = @category.products
       @name = "#{@category.name} Posts"
     else
-      @product = Product.all
+      @product = Product.paginate(page: params[:page], per_page: 10)
       @name = "All Posts"
     end
   end
@@ -48,11 +48,15 @@ class ProductsController < ApplicationController
     end
     respond_to do |format|
       if @product.save
+        format.js { }
         format.html { redirect_to category_product_url(@category,@product), notice: "Product was successfully created." }
         format.json { render :show, status: :created, location: @product }
+
       else
+        format.js { }
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
+
       end
     end
   end

@@ -5,10 +5,10 @@ class Ability
 
   def initialize(user)
     # Define abilities for the user here. For example:
-    #
+
        return unless user.present?
        can [:read,:mark], :all
-    can [:create, :update],Product,user_id:user.id
+    can [:create, :update, :destroy],Product,user_id:user.id
     can [:create, :update],Variant,user_id:user.id
     #   return unless user.admin?
     #   can :manage, :all

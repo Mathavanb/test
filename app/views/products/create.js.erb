@@ -1,0 +1,6 @@
+
+<% if @product.errors.any? %>
+alert("<%= @product.errors.full_messages.join(',') %>");
+<% else %>
+alert("product created successfully"); window.location.href = '<%= category_products_path(@category) %>';
+<% end %>

@@ -10,6 +10,7 @@ gem 'sqlite3', '~> 1.4'
 gem 'devise'
 gem 'activestorage'
 gem 'cancancan'
+gem 'will_paginate'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
