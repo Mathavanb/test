@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @remark.body %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @remark.product_id %>
+</p>
+
+<%= link_to 'Edit', edit_remark_path(@remark) %> |
+<%= link_to 'Back', remarks_path %>

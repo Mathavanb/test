@@ -1,0 +1,30 @@
+
+<%= form_with(model:[user_remark_rating[0],user_remark_rating[1]]) do |form| %>
+  <% if user_remark_rating[1].errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user_remark_rating[1].errors.count, "error") %> prohibited this user_remark_rating from being saved:</h2>
+
+      <ul>
+        <% user_remark_rating[1].errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+    <%= form.radio_button :rate, 1 %>  <%= form.label :star1,:style => "display: inline-block;" %>
+
+    <%= form.radio_button :rate, 2 %>  <%= form.label :star2,:style => "display: inline-block;" %>
+
+    <%= form.radio_button :rate, 3 %>  <%= form.label :star3,:style => "display: inline-block;" %>
+
+    <%= form.radio_button :rate, 4 %>  <%= form.label :star4,:style => "display: inline-block;" %>
+
+    <%= form.radio_button :rate, 5 %>  <%= form.label :star5,:style => "display: inline-block;" %> -
+
+    <%= form.submit "Submit" %>
+
+
+<% end %>

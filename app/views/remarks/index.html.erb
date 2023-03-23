@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Remarks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th>Product</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @remarks.each do |remark| %>
+      <tr>
+        <td><%= remark.body %></td>
+        <td><%= remark.product_id %></td>
+        <td><%= link_to 'Show', remark %></td>
+        <td><%= link_to 'Edit', edit_remark_path(remark) %></td>
+        <td><%= link_to 'Destroy', remark, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Remark', new_remark_path %>

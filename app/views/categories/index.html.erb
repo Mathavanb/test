@@ -1,7 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Categories</h1><br>
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="new"></div>
+  </div>
+
+</div>
+
+<h1>Categories</h1><br>
+<%= button_tag 'New Category',data:{remote:true},id:"myBtn" %>
+<br><br>
 <table style="border-spacing: 10px">
   <thead>
     <tr>
@@ -11,15 +24,10 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody id="new1">
     <% @categories.each do |category| %>
       <tr>
-        <td><%= category.name %></td>
-        <td><%= category.description %></td>
-        <td><%= link_to 'Show', category %></td>
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= button_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Products', category_products_path(category) %></td>
+        <%= render 'list',category:category %>
       </tr>
     <% end %>
   </tbody>
@@ -29,3 +37,36 @@
 
 <%= link_to 'New Category', new_category_path %> |
 <%= link_to 'View All Products', products_path %>
+
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+</script>
+
+<script>
+  $('#new').html('<%= j(render 'form',category:Category.new) %>')
+</script>

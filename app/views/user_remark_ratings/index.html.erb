@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>User Remark Ratings</h1><br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rate</th>
+      <th>User</th>
+      <th>Remark</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @remark.user_remark_ratings.each do |user_remark_rating| %>
+      <tr>
+        <td><%= user_remark_rating.rate %></td>
+        <td><%= user_remark_rating.user.email %></td>
+        <td><%= user_remark_rating.remark_id %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'back',:back %>

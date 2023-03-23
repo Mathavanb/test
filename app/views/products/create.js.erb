@@ -2,5 +2,14 @@
 <% if @product.errors.any? %>
 alert("<%= @product.errors.full_messages.join(',') %>");
 <% else %>
-alert("product created successfully"); window.location.href = '<%= category_products_path(@category) %>';
+alert("product created successfully");
+
+const url= "/categories/<%= @product.category.id %>/products/<%= @product.id%>"
+history.pushState({}, '', url);
+var xhr = new XMLHttpRequest();
+xhr.open('GET', url);
+xhr.onload = function() {
+    document.documentElement.innerHTML = xhr.responseText;
+};
+xhr.send();
 <% end %>

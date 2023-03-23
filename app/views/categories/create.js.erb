@@ -1,0 +1,6 @@
+<% if @category.errors.any? %>
+  alert("<%= @category.errors.full_messages.join(',') %>");
+<% else %>
+  alert("category created successfully");
+  $('#new1').append('<%= j(render 'list',category:@category) %>');
+<% end %>

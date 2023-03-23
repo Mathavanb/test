@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_14_132259) do
+ActiveRecord::Schema.define(version: 2023_03_21_163617) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 2023_03_14_132259) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_comments_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -76,10 +83,28 @@ ActiveRecord::Schema.define(version: 2023_03_14_132259) do
     t.index ["product_id"], name: "index_ratings_on_product_id"
   end
 
+  create_table "remarks", force: :cascade do |t|
+    t.text "body"
+    t.integer "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_remarks_on_product_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_remark_ratings", force: :cascade do |t|
+    t.integer "rate"
+    t.integer "user_id", null: false
+    t.integer "remark_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["remark_id"], name: "index_user_remark_ratings_on_remark_id"
+    t.index ["user_id"], name: "index_user_remark_ratings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -107,9 +132,13 @@ ActiveRecord::Schema.define(version: 2023_03_14_132259) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "products"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "users"
   add_foreign_key "ratings", "products"
+  add_foreign_key "remarks", "products"
+  add_foreign_key "user_remark_ratings", "remarks"
+  add_foreign_key "user_remark_ratings", "users"
   add_foreign_key "variants", "products"
   add_foreign_key "variants", "users"
 end

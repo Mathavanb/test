@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :categories, defaults: { format: :json }
+  resources :user_remark_ratings
+  resources :remarks
+  get 'comments/create'
+  get 'comments/destroy'
+  resources :categories
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -9,12 +13,18 @@ Rails.application.routes.draw do
 
   resources :tags
     resources :categories do
-      resources :products
+      resources :products do
+        resources :remarks, only: [:create, :destroy]
+      end
     end
 
     resources :products do
       resources :variants
     end
+
+  resources :remarks do
+    resources :user_remark_ratings
+  end
 
     root 'categories#index'
 

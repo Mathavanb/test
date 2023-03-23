@@ -9,5 +9,8 @@ class User < ApplicationRecord
   has_many :products
   has_many :variants
 
+  has_many :user_remark_ratings
+  has_many :remarks, through: :user_remark_ratings
+
   has_and_belongs_to_many :products, join_table: "products_users"
 end

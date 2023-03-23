@@ -52,7 +52,41 @@
   <% else %>
   -
 <% end %>
-</p><br>
+</p>
+<br>
+<div>
+  <p><b>Add a remark</b></p>
+
+  <%= form_with model: [@category,@product,@remark] do |f| %>
+    <%= f.text_field :body %>
+    <%= f.submit %>
+  <% end %>
+</div>
+<br>
+<% if @product.remarks.count > 0 %>
+  <table>
+    <tbody>
+    <% @product.remarks.each do |remark| %>
+      <% if remark.body != nil %>
+        <tr><b>Remarks: </b><br><br>
+          <td><%= remark.body %> - </td>
+
+          <td><% if remark.user_remark_ratings.any? %>
+              <% remark.user_remark_ratings.group(:rate).count.each do |i| %>
+                <b><%= i[0] %></b> ⭐ given by <b><%= i[1] %></b> |
+              <% end %>
+            <% else %>
+              No Rating Available!
+            <% end %> - </td>
+
+          <td><%= render 'user_remark_ratings/form', user_remark_rating:[remark,remark.user_remark_ratings.new] %></td>
+          <td><%= link_to "Destroy", category_product_remark_path(@category,@product,remark), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+<% end %><br>
 
 <div>
   <% unless @product.users.include?(current_user) %>

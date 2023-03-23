@@ -1,1 +1,3 @@
-json.name @category.namejson.description @category.descriptionjson.url categories_url(@categories)
+json.name @category.name
+json.description @category.description
+json.url categories_url(@categories)

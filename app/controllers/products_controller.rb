@@ -13,19 +13,21 @@ class ProductsController < ApplicationController
   def index
     if params[:category_id].present?
       @category = Category.find(params[:category_id])
-      @product = @category.products
+      @product = @category.products.includes(:category).paginate(page: params[:page], per_page: 10)
       @name = "#{@category.name} Posts"
     else
-      @product = Product.paginate(page: params[:page], per_page: 10)
+      @product = Product.includes(:category).paginate(page: params[:page], per_page: 10)
       @name = "All Posts"
     end
   end
+
 
   def profile
   end
 
   # GET /products/1 or /products/1.json
   def show
+    @remark = @product.remarks.new
   end
 
   # GET /products/new
