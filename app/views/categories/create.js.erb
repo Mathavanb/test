@@ -3,4 +3,5 @@
 <% else %>
   alert("category created successfully");
   $('#new1').append('<%= j(render 'list',category:@category) %>');
+  $(".close").click();
 <% end %>

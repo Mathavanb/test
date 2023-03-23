@@ -2,6 +2,14 @@
 
 <h1><%= @name %></h1><br>
 
+<%= form_tag category_products_path, method: :get do %>
+  <%= label_tag :from_date, "From:",:style => "display: inline-block;" %>
+  <%= date_field_tag :from_date %>
+  <%= label_tag :to_date, "To:",:style => "display: inline-block;" %>
+  <%= date_field_tag :to_date %>
+  <%= submit_tag "Filter" %>
+<% end %>
+
 <table style="border-spacing: 10px">
   <thead>
     <tr>
@@ -72,6 +80,7 @@
 </table><br>
 
 <% if @name != "All Posts" %>
+  <%= will_paginate @product %><br>
   <%= link_to 'New Product', new_category_product_path(@category) %> |
   <% else %>
   <%= will_paginate @product %><br>
