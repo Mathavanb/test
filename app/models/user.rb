@@ -1,8 +1,11 @@
 class User < ApplicationRecord
+  after_create :demo
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+
 
   has_one_attached :avatar
 
@@ -13,4 +16,8 @@ class User < ApplicationRecord
   has_many :remarks, through: :user_remark_ratings
 
   has_and_belongs_to_many :products, join_table: "products_users"
+
+  def demo
+    UserMailJob.perform_now(self)
+  end
 end

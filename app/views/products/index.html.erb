@@ -1,15 +1,17 @@
 <p id="notice"><%= notice %></p><br><br>
 
 <h1><%= @name %></h1><br>
-
-<%= form_tag category_products_path, method: :get do %>
-  <%= label_tag :from_date, "From:",:style => "display: inline-block;" %>
-  <%= date_field_tag :from_date %>
-  <%= label_tag :to_date, "To:",:style => "display: inline-block;" %>
-  <%= date_field_tag :to_date %>
-  <%= submit_tag "Filter" %>
-<% end %>
-
+<% if @name != "All Posts" %>
+  <div>
+    <%= form_tag category_products_path, method: :get do %>
+      <%= label_tag :from_date, "From:",:style => "display: inline-block;" %>
+      <%= date_field_tag :from_date %>
+      <%= label_tag :to_date, "To:",:style => "display: inline-block;" %>
+      <%= date_field_tag :to_date %>
+      <%= submit_tag "Filter" %>
+    <% end %>
+  </div>
+  <% end %>
 <table style="border-spacing: 10px">
   <thead>
     <tr>
@@ -56,18 +58,10 @@
             No Rating Available!
           <% end %>
         </td>
+        <td><%=  product.ratings_count.truncate(1) if product.ratings_count.present? %></td>
         <td>
-          <% if product.ratings.any? %>
-          <div style="text-align: center"><%= product.ratings.average(:value).round(1) %></div>
-          <% else %>
-          <div style="text-align: center"> - </div>
-          <% end %>
-        </td>
-        <td>
-          <% if product.variants.any? %>
-          <div style="text-align: center"><%= product.variants.length %></div>
-          <% else %>
-          <div style="text-align: center">-</div>
+          <% if product.variants_count.present? %>
+          <div style="text-align: center"><%= product.variants_count %></div>
           <% end %>
         </td>
         <td><%= link_to 'Show', category_product_path(product.category.id, product) %></td>
@@ -79,7 +73,7 @@
   </tbody>
 </table><br>
 
-<% if @name != "All Posts" %>
+<% if @name != "All Products" %>
   <%= will_paginate @product %><br>
   <%= link_to 'New Product', new_category_product_path(@category) %> |
   <% else %>

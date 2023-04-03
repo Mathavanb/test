@@ -13,11 +13,11 @@ class ProductsController < ApplicationController
   def index
     if params[:category_id].present?
       @category = Category.find(params[:category_id])
-      @product = @category.products.product_date(params[:from_date],params[:to_date]).includes(:category,:remarks,:users,:user,:variants,:ratings,:tags).paginate(page: params[:page], per_page: 10)
-      @name = "#{@category.name} Posts"
+      @product = @category.products.includes(:variants,:ratings,:tags).product_date(params[:from_date],params[:to_date]).paginate(page: params[:page], per_page: 10)
+      @name = "#{@category.name} Products"
     else
-      @product = Product.includes(:category).paginate(page: params[:page], per_page: 10)
-      @name = "All Posts"
+      @product = Product.includes(:category,:variants,:ratings,:tags).paginate(page: params[:page], per_page: 10)
+      @name = "All Products"
     end
   end
 

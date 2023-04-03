@@ -9,6 +9,23 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.cache_classes = false
 
+  config.action_mailer.delivery_method = :smtp
+  host = 'http://127.0.0.1:3000/' #replace with your own url
+  config.action_mailer.default_url_options = { host: host }
+
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => "mathavandm123@gmail.com",
+    :password             => "vtwycqlhbdiwguxw",
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
+
+  #config.action_mailer.delivery_method = :letter_opener
+  #config.action_mailer.perform_deliveries = true
+
   # Do not eager load code on boot.
   config.eager_load = false
 

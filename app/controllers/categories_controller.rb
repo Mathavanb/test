@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories or /categories.json
   def index
-    @categories = Category.includes(:products).all
+    @categories = Category.all
     respond_to do |format|
       format.html
       format.json
