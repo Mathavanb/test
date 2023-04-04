@@ -2,7 +2,7 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: "postgres://mathavan:6hfHZkE1Miew9dQ9UEM3p9XTstHtn3c7@dpg-cglhc102qv24jlv4u1j0-a.oregon-postgres.render.com/blog_db_lzncpostgres://mathavan:6hfHZkE1Miew9dQ9UEM3p9XTstHtn3c7@dpg-cglhc102qv24jlv4u1j0-a.oregon-postgres.render.com/blog_db_lznc"
+  url: "postgres://mathavan:6hfHZkE1Miew9dQ9UEM3p9XTstHtn3c7@dpg-cglhc102qv24jlv4u1j0-a.oregon-postgres.render.com/blog_db_lznc"
 
 
 default: &default
