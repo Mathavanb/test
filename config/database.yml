@@ -1,9 +1,10 @@
-# SQLite. Versions 3.8.0 and up are supported.
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: "postgres://mathavan:6hfHZkE1Miew9dQ9UEM3p9XTstHtn3c7@dpg-cglhc102qv24jlv4u1j0-a.oregon-postgres.render.com/blog_db_lzncpostgres://mathavan:6hfHZkE1Miew9dQ9UEM3p9XTstHtn3c7@dpg-cglhc102qv24jlv4u1j0-a.oregon-postgres.render.com/blog_db_lznc"
+
+
 default: &default
   adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -20,6 +21,4 @@ test:
   <<: *default
   database: db/test.sqlite3
 
-production:
-  <<: *default
-  database: db/production.sqlite3
+
